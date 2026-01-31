@@ -1,0 +1,65 @@
+
+
+
+
+<form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label for="title">כותרת משימה</label><br />
+    <input id="title" formControlName="title" />
+    
+    @if (addTaskForm.get('title')?.touched && addTaskForm.get('title')?.invalid) {
+      <div style="color:red;">
+        כותרת משימה חובה.
+      </div>
+    }
+  </div>
+
+  <div>
+    <label for="description">תיאור משימה</label><br />
+    <textarea id="description" formControlName="description"></textarea>
+  </div>
+
+  <div>
+    <label for="status">סטטוס</label><br />
+    <select id="status" formControlName="status">
+      <option value="">בחר סטטוס</option>
+      <option value="todo">לביצוע</option>
+      <option value="in_progress">בתהליך</option>
+      <option value="done">הושלם</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="priority">עדיפות</label><br />
+    <select id="priority" formControlName="priority">
+      <option value="">בחר עדיפות</option>
+      <option value="low">נמוכה</option>
+      <option value="medium">בינונית</option>
+      <option value="high">גבוהה</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="assigned_id">מזהה משתמש מוקצה</label><br />
+    <input id="assigned_id" type="number" formControlName="assigned_id" />
+  </div>
+
+  <div>
+    <label for="due_date">תאריך יעד</label><br />
+    <input id="due_date" type="date" formControlName="due_date" />
+  </div>
+
+  <div>
+    <label for="order_index">מיקום במסדר</label><br />
+    <input id="order_index" type="number" formControlName="order_index" />
+  </div>
+
+  @if (errorMass()) {
+    <div style="color:red; margin-top: 10px;">
+      שגיאה: {{ errorMass() }}
+    </div>
+  }
+
+  <button type="submit" [disabled]="addTaskForm.invalid">הוסף משימה</button>
+</form>

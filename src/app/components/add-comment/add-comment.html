@@ -1,0 +1,43 @@
+
+
+@if (taskId()) {
+  <div class="task-info">
+    <strong>הוספת תגובה למשימה:</strong> {{ taskId() }}
+  </div>
+} @else {
+  <div class="error-message">
+    <strong>שגיאה:</strong> לא נמצא מזהה משימה
+  </div>
+}
+
+<form [formGroup]="addCommentForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="body">תוכן התגובה</label><br />
+    <textarea 
+      id="body" 
+      formControlName="body" 
+      rows="5" 
+      placeholder="הכנס את התגובה כאן...">
+    </textarea>
+    
+    @if (addCommentForm.get('body')?.touched && addCommentForm.get('body')?.invalid) {
+      <div class="error">
+        תוכן התגובה חובה (לפחות 3 תווים).
+      </div>
+    }
+  </div>
+
+  @if (errorMass()) {
+    <div class="error-message">
+      <strong>שגיאה:</strong> {{ errorMass() }}
+    </div>
+  }
+
+  <button type="submit" [disabled]="addCommentForm.invalid || !taskId()">
+    הוסף תגובה
+  </button>
+  
+  <button type="button" (click)="cancel()">
+    ביטול
+  </button>
+</form>

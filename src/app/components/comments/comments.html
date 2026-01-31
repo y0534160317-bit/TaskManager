@@ -1,0 +1,60 @@
+
+
+@if (taskId()) {
+  <div class="task-info">
+    <strong>תגובות למשימה:</strong> {{ taskId() }}
+  </div>
+}
+
+<div>
+    <h2>תגובות</h2>
+    
+    @if(isLoading()) {
+        <p>טוען תגובות...</p>
+    } @else if(error()) {
+        <div class="error-message">
+            <p><strong>שגיאה בטעינת תגובות:</strong> {{error()}}</p>
+            <button (click)="retry()">נסה שוב</button>
+        </div>
+    } @else if(comments().length === 0) {
+        <div class="warning-message">
+            <p>אין תגובות למשימה זו.</p>
+        </div>
+    } @else {
+        <ul class="comments-list">
+            @for(comment of comments(); track comment.id) {
+                <li class="comment-item">
+                    @if(comment.id) {
+                        <div class="comment-field">
+                            <strong>מזהה:</strong> {{ comment.id }}
+                        </div>
+                    }
+
+                    <div class="comment-field">
+                        <strong>משתמש:</strong> {{ comment.user_id }}
+                    </div>
+
+                    <div class="comment-body">
+                        {{ comment.body }}
+                    </div>
+
+                    @if(comment.created_at) {
+                        <div class="comment-date">
+                            <strong>נוצר:</strong> {{ comment.created_at }}
+                        </div>
+                    }
+                </li>
+            }
+        </ul>
+    }
+
+    <div class="comment-actions">
+        <button (click)="navigateToAddComment()" class="btn-add-comment">
+            הוסף תגובה
+        </button>
+        
+        <button (click)="goBack()" class="btn-back">
+            חזור
+        </button>
+    </div>
+</div>

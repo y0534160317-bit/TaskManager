@@ -1,0 +1,128 @@
+@if (projectId()) {
+<div class="project-info">
+    <strong>משימות של פרויקט:</strong> {{ projectId() }}
+</div>
+}
+
+<div>
+    <h2>משימות</h2>
+    @if(isLoading()) {
+    <p>Loading...</p>
+    } @else if(error()) {
+    <div class="error-message">
+        <p><strong>שגיאה בטעינת משימות:</strong> {{error()}}</p>
+        <button (click)="retry()">נסה שוב</button>
+    </div>
+    } @else if(tasks().length === 0) {
+    <div class="warning-message">
+        <p>אין משימות זמינות לפרויקט זה.</p>
+    </div>
+    } @else {
+    <ul class="tasks-list">
+        @for(task of tasks(); track task.id) {
+        <li class="task-item">
+            @if(task.id) {
+            <div class="task-field">
+                <strong>מזהה:</strong> {{ task.id }}
+            </div>
+            }
+
+            <div class="task-field">
+                <strong>מזהה פרויקט:</strong> {{ task.project_id }}
+            </div>
+
+            <div class="task-title">
+                <strong>{{ task.title }}</strong>
+            </div>
+
+            @if(task.description) {
+            <div class="task-description">
+                <strong>תיאור:</strong> {{ task.description }}
+            </div>
+            } @else {
+            <div class="task-no-description">
+                אין תיאור
+            </div>
+            }
+
+            @if(task.status) {
+            <div class="task-field">
+                <strong>סטטוס:</strong> {{ task.status }}
+            </div>
+            } @else {
+            <div class="task-no-status">
+                <strong>סטטוס:</strong> לא הוגדר
+            </div>
+            }
+
+            @if(task.priority) {
+            <div class="task-field">
+                <strong>עדיפות:</strong> {{ task.priority }}
+            </div>
+            } @else {
+            <div class="task-no-priority">
+                <strong>עדיפות:</strong> לא הוגדר
+            </div>
+            }
+
+            @if(task.assigned_id) {
+            <div class="task-field">
+                <strong>מוקצה למשתמש:</strong> {{ task.assigned_id }}
+            </div>
+            } @else {
+            <div class="task-no-assigned">
+                לא מוקצה
+            </div>
+            }
+
+            @if(task.due_date) {
+            <div class="task-date">
+                <strong>תאריך יעד:</strong> {{ task.due_date }}
+            </div>
+            } @else {
+            <div class="task-no-date">
+                אין תאריך יעד
+            </div>
+            }
+
+            @if(task.order_index !== undefined && task.order_index !== null) {
+            <div class="task-field">
+                <strong>מיקום במסדר:</strong> {{ task.order_index }}
+            </div>
+            }
+
+            @if(task.created_at) {
+            <div class="task-date-small">
+                <strong>נוצר:</strong> {{ task.created_at }}
+            </div>
+            }
+
+            @if(task.updated_at) {
+            <div class="task-date-small">
+                <strong>עודכן:</strong> {{ task.updated_at }}
+            </div>
+            }
+            <button (click)="navigateToUpdate(task.id!)" class="btn-navigate">
+                עדכן משימה
+            </button>
+
+            <button (click)="deleteTask(task.id!)">
+                מחק משימה
+            </button>
+
+            <button (click)="navigateToComments(task.id!)" class="btn-comments">
+                תגובות
+            </button>
+        </li>
+        }
+    </ul>
+    }
+
+
+    <div class="add-task-section">
+
+        <button (click)="navigateToAdd(projectId()!)" class="btn-navigate">
+            הוסף משימה
+        </button>
+    </div>
+</div>

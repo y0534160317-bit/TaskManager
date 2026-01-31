@@ -1,0 +1,81 @@
+
+<div class="register-container">
+  <h2>הרשמה</h2>
+  
+  @if (errorMass()) {
+    <div class="error-message">
+      {{ errorMass() }}
+      
+      @if (errorMass()?.includes('כבר קיים')) {
+        <button class="link-button" (click)="goToLogin()">
+          עבור להתחברות
+        </button>
+      }
+    </div>
+  }
+  
+  @if (successMessage()) {
+    <div class="success-message">
+       {{ successMessage() }}
+    </div>
+  }
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">שם משתמש</label>
+      <input 
+        id="username" 
+        formControlName="username"
+        placeholder="לפחות 3 תווים"
+        [class.invalid]="registerForm.get('username')?.touched && registerForm.get('username')?.invalid"
+      />
+      
+      @if (registerForm.get('username')?.touched && registerForm.get('username')?.invalid) {
+        <div class="field-error">
+          שם משתמש חובה ולפחות 3 תווים
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email">אימייל</label>
+      <input 
+        id="email" 
+        formControlName="email" 
+        type="email"
+        placeholder="example@email.com"
+        [class.invalid]="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
+      />
+      
+      @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+        <div class="field-error">
+          נא להזין אימייל תקין
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="password">סיסמה</label>
+      <input 
+        id="password" 
+        formControlName="password" 
+        type="password"
+        placeholder="לפחות 6 תווים"
+        [class.invalid]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+      />
+      
+      @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+        <div class="field-error">
+          סיסמה חובה ולפחות 6 תווים
+        </div>
+      }
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">הירשם</button>
+  </form>
+
+  <p class="login-link">
+    כבר יש לך חשבון? 
+    <a (click)="goToLogin()">התחבר כאן</a>
+  </p>
+</div>

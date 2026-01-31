@@ -1,0 +1,38 @@
+
+
+@if (teamId()) {
+  <div class="team-info">
+    <strong>מוסיף חבר לקבוצה:</strong> {{ teamId() }}
+  </div>
+} @else {
+  <div class="error-message">
+    <strong>שגיאה:</strong> לא נמצא מזהה קבוצה
+  </div>
+}
+
+<form [formGroup]="addMemberForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="userId">מזהה משתמש</label><br />
+    <input id="userId" type="number" formControlName="userId" />
+    
+    @if (addMemberForm.get('userId')?.touched && addMemberForm.get('userId')?.invalid) {
+      <div class="error">
+        מזהה משתמש חובה (מספר חיובי).
+      </div>
+    }
+  </div>
+
+  @if (errorMass()) {
+    <div class="error-message">
+      <strong>שגיאה:</strong> {{ errorMass() }}
+    </div>
+  }
+
+  <button type="submit" [disabled]="addMemberForm.invalid || !teamId()">
+    הוסף חבר
+  </button>
+  
+  <button type="button" (click)="cancel()">
+    ביטול
+  </button>
+</form>

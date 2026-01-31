@@ -1,0 +1,63 @@
+
+<div>
+    @if(isLoading()) {
+        <p>Loading...</p>
+    } @else if(error()) {
+        <div class="error-message">
+            <p><strong>שגיאה בטעינת קבוצות:</strong> {{error()}}</p>
+            <button (click)="retry()">נסה שוב</button>
+        </div>
+    } @else if(teams().length === 0) {
+        <div class="warning-message">
+            <p>אין קבוצות זמינות.</p>
+        </div>
+                <button (click)="navigateToAddTeam()">
+            הוסף קבוצה חדשה
+        </button>
+    } @else {
+        <button (click)="navigateToAddTeam()">
+            הוסף קבוצה חדשה
+        </button>
+        <ul class="teams-list">
+            @for(team of teams(); track team.id) {
+                <li class="team-item">
+                    @if(team.id) {
+                        <div class="team-field">
+                            <strong>מזהה:</strong> {{ team.id }}
+                        </div>
+                    }
+
+                    <div class="team-name">
+                        <strong>{{ team.name }}</strong>
+                    </div>
+
+                    @if(team.members_count !== undefined && team.members_count !== null) {
+                        <div class="team-members-count">
+                            <strong>מספר חברים:</strong> {{ team.members_count }}
+                        </div>
+                    } @else {
+                        <div class="team-no-members">
+                            אין נתונים על מספר חברים
+                        </div>
+                    }
+
+                    @if(team.created_at) {
+                        <div class="team-date">
+                            <strong>נוצר בתאריך:</strong> {{ team.created_at }}
+                        </div>
+                    }
+                  
+                    <div class="team-actions">
+                        <button (click)="navigateToAddMember(team.id)" class="btn-add-member">
+                            הוסף חבר
+                        </button>
+                        
+                        <button (click)="navigateToProjects(team.id)" class="btn-navigate">
+                            נווט לפרויקטים
+                        </button>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</div>

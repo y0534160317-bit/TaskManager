@@ -1,0 +1,45 @@
+
+
+
+@if (teamId()) {
+  <div class="team-info">
+    <strong>מוסיף פרויקט לקבוצה:</strong> {{ teamId() }}
+  </div>
+} @else {
+  <div class="error-message">
+    <strong>שגיאה:</strong> לא נמצא מזהה קבוצה
+  </div>
+}
+
+<form [formGroup]="addProjectForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label for="name">שם פרויקט</label><br />
+    <input id="name" formControlName="name" />
+    
+    @if (addProjectForm.get('name')?.touched && addProjectForm.get('name')?.invalid) {
+      <div class="error">
+        שם פרויקט חובה ולפחות 3 תווים.
+      </div>
+    }
+  </div>
+
+  <div>
+    <label for="description">תיאור פרויקט</label><br />
+    <textarea id="description" formControlName="description"></textarea>
+  </div>
+
+  @if (errorMass()) {
+    <div class="error-message">
+      <strong>שגיאה:</strong> {{ errorMass() }}
+    </div>
+  }
+
+  <button type="submit" [disabled]="addProjectForm.invalid || !teamId()">
+    הוסף פרויקט
+  </button>
+  
+  <button type="button" (click)="cancel()">
+    ביטול
+  </button>
+</form>

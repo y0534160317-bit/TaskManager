@@ -1,0 +1,17 @@
+
+
+
+
+<form [formGroup]="addTeamForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">שם צוות</label><br/>
+    <input id="name" formControlName="name"/>
+    @if (addTeamForm.get('name')?.touched && addTeamForm.get('name')?.invalid) {
+      <div style="color:red;">
+        שם משתמש חובה ולפחות 3 תווים.
+      </div>
+    }
+
+  </div>
+  <button type="submit" [disabled]="addTeamForm.invalid">הוסף צוות</button>
+</form>
