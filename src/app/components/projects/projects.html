@@ -1,74 +1,57 @@
 
-@if (teamId()) {
-  <div class="team-info">
-    <strong>פרויקטים של קבוצה:</strong> {{ teamId() }}
-  </div>
-}
+<div class="page-container animate__animated animate__fadeIn">
+  <nav class="breadcrumb">
+    <mat-icon>folder_special</mat-icon>
+    <span>פרויקטים של קבוצה: {{ teamId() }}</span>
+  </nav>
 
-<div>
-    @if(isLoading()) {
-        <p>Loading...</p>
-    } @else if(error()) {
-        <div class="error-message">
-            <p><strong>שגיאה בטעינת פרויקטים:</strong> {{error()}}</p> 
-        </div>
-    } @else if(projects().length === 0) {
-        <div class="warning-message">
-            <p>אין פרויקטים זמינים לקבוצה זו.</p> 
-        </div>
-    } @else {
-        <ul class="projects-list">
-            @for(project of projects(); track project.id) {
-                <li class="project-item">
-                    <div class="project-field">
-                        <strong>מזהה:</strong> {{ project.id }}
-                    </div>
-
-                    <div class="project-field">
-                        <strong>מזהה קבוצה:</strong> {{ project.team_id }}
-                    </div>
-
-                    <div class="project-name">
-                        <strong>{{ project.name }}</strong>
-                    </div>
-
-                    @if(project.description) {
-                        <div class="project-description">
-                            <strong>תיאור:</strong> {{ project.description }}
-                        </div>
-                    } @else {
-                        <div class="project-no-description">
-                            אין תיאור
-                        </div>
-                    }
-
-                    @if(project.status) {
-                        <div class="project-field">
-                            <strong>סטטוס:</strong> {{ project.status }}
-                        </div>
-                    } @else {
-                        <div class="project-no-status">
-                            <strong>סטטוס:</strong> לא הוגדר
-                        </div>
-                    }
-
-                    @if(project.created_at) {
-                        <div class="project-date">
-                            <strong>נוצר בתאריך:</strong> {{ project.created_at }}
-                        </div>
-                    }
-
-                    <button (click)="navigateToTasks(project.id!)" class="btn-navigate">
-                        נווט למשימות
-                    </button>
-                </li>
-            }
-        </ul>
-    }
-
-    <div class="add-project-section">
-              <button (click)="navigateToAddProject()" class="btn-add-project">
-            הוסף פרויקט חדש
-        </button>
+  @if(isLoading()) {
+    <div class="center-spinner"><mat-spinner strokeWidth="3" diameter="50"></mat-spinner></div>
+  } @else if(error()) {
+    <div class="error-banner">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{error()}}</span>
     </div>
+  } @else if(projects().length === 0) {
+    <div class="empty-state">
+      <mat-icon>folder_off</mat-icon>
+      <p>עדיין אין פרויקטים בקבוצה זו.</p>
+      <button mat-flat-button color="primary" (click)="navigateToAddProject()">צור פרויקט ראשון</button>
+    </div>
+  } @else {
+    <div class="projects-grid">
+      @for(project of projects(); track project.id) {
+        <mat-card class="project-card">
+          <mat-card-header>
+            <mat-card-title>{{ project.name }}</mat-card-title>
+            <mat-card-subtitle>מזהה פרויקט: {{ project.id }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p class="project-desc">{{ project.description || 'אין תיאור לפרויקט זה' }}</p>
+            <div class="project-info-row">
+              <mat-chip-listbox>
+                <mat-chip highlighted [color]="project.status ? 'accent' : ''">
+                  {{ project.status || 'סטטוס לא הוגדר' }}
+                </mat-chip>
+              </mat-chip-listbox>
+              <span class="date-label" *ngIf="project.created_at">
+                <mat-icon>calendar_today</mat-icon> {{ project.created_at | date:'dd/MM/yyyy' }}
+              </span>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button mat-stroked-button color="primary" (click)="navigateToTasks(project.id!)">
+              <mat-icon>assignment</mat-icon> לצפייה במשימות
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+    
+    <button mat-fab class="fab-bottom" color="primary" (click)="navigateToAddProject()" matTooltip="הוסף פרויקט">
+      <mat-icon>add</mat-icon>
+    </button>
+  }
 </div>

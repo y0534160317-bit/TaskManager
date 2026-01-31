@@ -1,43 +1,28 @@
 
+<div class="form-page-wrapper">
+  <mat-card class="form-card animate__animated animate__bounceIn">
+    <mat-card-header>
+      <mat-card-title>כתיבת תגובה</mat-card-title>
+      <mat-card-subtitle>משימה #{{ taskId() }}</mat-card-subtitle>
+    </mat-card-header>
 
-@if (taskId()) {
-  <div class="task-info">
-    <strong>הוספת תגובה למשימה:</strong> {{ taskId() }}
-  </div>
-} @else {
-  <div class="error-message">
-    <strong>שגיאה:</strong> לא נמצא מזהה משימה
-  </div>
-}
+    <mat-card-content>
+      <form [formGroup]="addCommentForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>התגובה שלך...</mat-label>
+          <textarea matInput formControlName="body" rows="6" placeholder="שתף את הצוות במחשבות שלך"></textarea>
+          <mat-hint>לפחות 3 תווים</mat-hint>
+        </mat-form-field>
 
-<form [formGroup]="addCommentForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="body">תוכן התגובה</label><br />
-    <textarea 
-      id="body" 
-      formControlName="body" 
-      rows="5" 
-      placeholder="הכנס את התגובה כאן...">
-    </textarea>
-    
-    @if (addCommentForm.get('body')?.touched && addCommentForm.get('body')?.invalid) {
-      <div class="error">
-        תוכן התגובה חובה (לפחות 3 תווים).
-      </div>
-    }
-  </div>
+        @if (errorMass()) { <div class="error-msg-box">{{ errorMass() }}</div> }
 
-  @if (errorMass()) {
-    <div class="error-message">
-      <strong>שגיאה:</strong> {{ errorMass() }}
-    </div>
-  }
-
-  <button type="submit" [disabled]="addCommentForm.invalid || !taskId()">
-    הוסף תגובה
-  </button>
-  
-  <button type="button" (click)="cancel()">
-    ביטול
-  </button>
-</form>
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancel()">ביטול</button>
+          <button mat-raised-button color="accent" type="submit" [disabled]="addCommentForm.invalid || !taskId()">
+            <mat-icon>send</mat-icon> פרסם תגובה
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

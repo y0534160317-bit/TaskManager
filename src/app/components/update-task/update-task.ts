@@ -3,9 +3,18 @@ import { TasksService } from '../../services/tasks-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task } from '../../models/taskModel';
 import { Router, ActivatedRoute } from '@angular/router';
+ import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select'; 
+
+
 @Component({
   selector: 'app-update-task',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatIconModule, MatProgressSpinnerModule, MatSelectModule],
   templateUrl: './update-task.html',
   styleUrl: './update-task.scss',
 })

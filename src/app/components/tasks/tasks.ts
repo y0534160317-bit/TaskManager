@@ -2,12 +2,21 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { TasksService } from '../../services/tasks-service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Task, Task_ret } from '../../models/taskModel';
-import { AddTasks } from '../add-tasks/add-tasks';
+ import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common'; 
+import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider'; 
+
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [],
+  imports: [MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatIconModule, CommonModule, MatChipsModule, MatMenuModule, MatDividerModule],
   templateUrl: './tasks.html',
   styleUrl: './tasks.scss',
 })

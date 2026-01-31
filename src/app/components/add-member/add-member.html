@@ -1,38 +1,27 @@
 
+<div class="small-form-container">
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>הוספת חבר לצוות</mat-card-title>
+      <mat-card-subtitle>הכנס את מזהה המשתמש שברצונך להוסיף לקבוצה {{ teamId() }}</mat-card-subtitle>
+    </mat-card-header>
 
-@if (teamId()) {
-  <div class="team-info">
-    <strong>מוסיף חבר לקבוצה:</strong> {{ teamId() }}
-  </div>
-} @else {
-  <div class="error-message">
-    <strong>שגיאה:</strong> לא נמצא מזהה קבוצה
-  </div>
-}
+    <mat-card-content>
+      <form [formGroup]="addMemberForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>מזהה משתמש (User ID)</mat-label>
+          <input matInput type="number" formControlName="userId">
+          <mat-icon matSuffix>person_add</mat-icon>
+          <mat-error *ngIf="addMemberForm.get('userId')?.invalid">מזהה לא תקין</mat-error>
+        </mat-form-field>
 
-<form [formGroup]="addMemberForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="userId">מזהה משתמש</label><br />
-    <input id="userId" type="number" formControlName="userId" />
-    
-    @if (addMemberForm.get('userId')?.touched && addMemberForm.get('userId')?.invalid) {
-      <div class="error">
-        מזהה משתמש חובה (מספר חיובי).
-      </div>
-    }
-  </div>
+        @if (errorMass()) { <p class="error-inline">{{ errorMass() }}</p> }
 
-  @if (errorMass()) {
-    <div class="error-message">
-      <strong>שגיאה:</strong> {{ errorMass() }}
-    </div>
-  }
-
-  <button type="submit" [disabled]="addMemberForm.invalid || !teamId()">
-    הוסף חבר
-  </button>
-  
-  <button type="button" (click)="cancel()">
-    ביטול
-  </button>
-</form>
+        <div class="form-actions-simple">
+          <button mat-button type="button" (click)="cancel()">סגור</button>
+          <button mat-flat-button color="accent" type="submit" [disabled]="addMemberForm.invalid">הוסף כעת</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,17 +1,29 @@
 
+<div class="form-page-wrapper">
+  <mat-card class="form-card animate__animated animate__zoomIn">
+    <mat-card-header>
+      <div mat-card-avatar><mat-icon color="primary">group_add</mat-icon></div>
+      <mat-card-title>הקמת צוות חדש</mat-card-title>
+    </mat-card-header>
 
+    <mat-card-content>
+      <form [formGroup]="addTeamForm" (ngSubmit)="onSubmit()" class="single-column-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>שם הצוות</mat-label>
+          <input matInput formControlName="name" placeholder="למשל: צוות פיתוח אופטימיזציה">
+          <mat-icon matSuffix>groups</mat-icon>
+          <mat-error *ngIf="addTeamForm.get('name')?.invalid">שם הצוות חייב להכיל לפחות 2 תווים</mat-error>
+        </mat-form-field>
 
+        @if (errorMass()) { <div class="error-msg-box">{{ errorMass() }}</div> }
 
-<form [formGroup]="addTeamForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">שם צוות</label><br/>
-    <input id="name" formControlName="name"/>
-    @if (addTeamForm.get('name')?.touched && addTeamForm.get('name')?.invalid) {
-      <div style="color:red;">
-        שם משתמש חובה ולפחות 3 תווים.
-      </div>
-    }
-
-  </div>
-  <button type="submit" [disabled]="addTeamForm.invalid">הוסף צוות</button>
-</form>
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancel()">ביטול</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="addTeamForm.invalid">
+            צור צוות כעת
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,14 +1,20 @@
 
+
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommentsService } from '../../services/comments-service';
 import { CommentRequest } from '../../models/commentModel';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-add-comment',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatIconModule],
   templateUrl: './add-comment.html',
   styleUrl: './add-comment.scss',
 })

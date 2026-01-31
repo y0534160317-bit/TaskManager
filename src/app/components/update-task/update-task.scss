@@ -1,0 +1,131 @@
+.form-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  padding: 20px;
+}
+
+.form-card {
+  max-width: 700px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+
+  mat-card-header {
+    background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%);
+    color: white;
+    padding: 24px;
+    text-align: center;
+
+    mat-card-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    mat-card-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+  }
+
+  mat-card-content {
+    padding: 32px 24px;
+  }
+}
+
+.form-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.task-grid-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .full-width {
+    width: 100%;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  mat-form-field {
+    .mat-mdc-form-field-icon-suffix {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+  }
+}
+
+.error-msg-box {
+  background: #fee;
+  color: #c33;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+
+  button {
+    min-width: 130px;
+
+    mat-icon {
+      margin-left: 6px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .form-page-wrapper {
+    padding: 16px;
+  }
+
+  .form-card {
+    mat-card-header {
+      padding: 20px 16px;
+
+      mat-card-title {
+        font-size: 20px;
+      }
+    }
+
+    mat-card-content {
+      padding: 24px 16px;
+    }
+  }
+
+  .task-grid-form {
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+    }
+  }
+}

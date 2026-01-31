@@ -5,11 +5,16 @@ import { CommentsService } from '../../services/comments-service';
 import { Comment } from '../../models/commentModel';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 @Component({
   selector: 'app-comments',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatIconModule, MatProgressBarModule],
   templateUrl: './comments.html',
   styleUrl: './comments.scss',
 })

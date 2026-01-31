@@ -1,0 +1,234 @@
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0;
+  
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.3s, transform 0.2s;
+      margin-left: 8px;
+
+      mat-icon {
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: scale(1.05);
+      }
+    }
+
+    button {
+      color: white;
+      font-weight: 500;
+      transition: background 0.3s;
+
+      mat-icon {
+        margin-left: 6px;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      &.active-link {
+        background: rgba(255, 255, 255, 0.25);
+        font-weight: 600;
+      }
+    }
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: white;
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+
+      .username {
+        font-weight: 500;
+        font-size: 14px;
+      }
+    }
+
+    .btn-logout {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
+
+      mat-icon {
+        margin-left: 6px;
+      }
+
+      &:hover {
+        background: rgba(244, 67, 54, 0.2);
+        border-color: white;
+      }
+    }
+
+    button {
+      font-weight: 500;
+
+      &:not(.btn-logout) {
+        color: white;
+      }
+
+      &.active-link {
+        background: rgba(255, 255, 255, 0.25);
+      }
+    }
+  }
+}
+
+.content-area {
+  min-height: calc(100vh - 64px);
+  background: #f5f7fa;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    .nav-container {
+      flex-direction: column;
+      padding: 12px 16px;
+      gap: 12px;
+    }
+
+    .nav-left {
+      width: 100%;
+      justify-content: space-between;
+
+      .logo {
+        margin-left: 0;
+        padding: 8px 12px;
+        font-size: 20px;
+
+        mat-icon {
+          font-size: 24px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      button {
+        font-size: 14px;
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    .nav-right {
+      width: 100%;
+      justify-content: space-between;
+      gap: 8px;
+
+      .user-info {
+        flex: 1;
+        justify-content: center;
+        padding: 8px 12px;
+
+        .username {
+          font-size: 13px;
+          max-width: 120px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .btn-logout {
+        font-size: 14px;
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      button:not(.btn-logout) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .content-area {
+    min-height: calc(100vh - 120px);
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    .nav-container {
+      padding: 10px 12px;
+    }
+
+    .nav-left {
+      .logo {
+        span {
+          display: none;
+        }
+      }
+    }
+
+    .nav-right {
+      .user-info {
+        .username {
+          display: none;
+        }
+      }
+
+      button {
+        min-width: auto;
+        padding: 0 12px;
+      }
+    }
+  }
+}

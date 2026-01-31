@@ -4,11 +4,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Task } from '../../models/taskModel';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select'; 
 
 @Component({
   selector: 'app-add-tasks',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatInputModule, MatSelectModule, MatCardModule, MatIconModule],
   templateUrl: './add-tasks.html',
   styleUrl: './add-tasks.scss',
 })

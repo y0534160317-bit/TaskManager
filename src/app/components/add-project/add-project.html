@@ -1,45 +1,33 @@
 
+<div class="form-page-wrapper">
+  <mat-card class="form-card animate__animated animate__fadeInUp">
+    <mat-card-header>
+      <mat-card-title>פרויקט חדש בצוות {{ teamId() }}</mat-card-title>
+    </mat-card-header>
 
+    <mat-card-content>
+      <form [formGroup]="addProjectForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>שם הפרויקט</mat-label>
+          <input matInput formControlName="name">
+          <mat-icon matSuffix>folder</mat-icon>
+          <mat-error *ngIf="addProjectForm.get('name')?.invalid">שם פרויקט חובה (מינימום 3 תווים)</mat-error>
+        </mat-form-field>
 
-@if (teamId()) {
-  <div class="team-info">
-    <strong>מוסיף פרויקט לקבוצה:</strong> {{ teamId() }}
-  </div>
-} @else {
-  <div class="error-message">
-    <strong>שגיאה:</strong> לא נמצא מזהה קבוצה
-  </div>
-}
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>תיאור הפרויקט (אופציונלי)</mat-label>
+          <textarea matInput formControlName="description" rows="4" placeholder="מה המטרה של הפרויקט?"></textarea>
+        </mat-form-field>
 
-<form [formGroup]="addProjectForm" (ngSubmit)="onSubmit()">
+        @if (errorMass()) { <div class="error-msg-box">{{ errorMass() }}</div> }
 
-  <div>
-    <label for="name">שם פרויקט</label><br />
-    <input id="name" formControlName="name" />
-    
-    @if (addProjectForm.get('name')?.touched && addProjectForm.get('name')?.invalid) {
-      <div class="error">
-        שם פרויקט חובה ולפחות 3 תווים.
-      </div>
-    }
-  </div>
-
-  <div>
-    <label for="description">תיאור פרויקט</label><br />
-    <textarea id="description" formControlName="description"></textarea>
-  </div>
-
-  @if (errorMass()) {
-    <div class="error-message">
-      <strong>שגיאה:</strong> {{ errorMass() }}
-    </div>
-  }
-
-  <button type="submit" [disabled]="addProjectForm.invalid || !teamId()">
-    הוסף פרויקט
-  </button>
-  
-  <button type="button" (click)="cancel()">
-    ביטול
-  </button>
-</form>
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancel()">ביטול</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="addProjectForm.invalid || !teamId()">
+            הוסף פרויקט
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

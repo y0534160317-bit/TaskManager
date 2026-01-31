@@ -1,69 +1,52 @@
 
-<div class="login-container">
-  <h2>התחברות</h2>
-  
+<div class="auth-wrapper">
+  <mat-card class="auth-card animate__animated animate__fadeIn">
+    <mat-card-header>
+      <mat-card-title>ברוכים השבים ל-taskit</mat-card-title>
+      <mat-card-subtitle>התחבר כדי לנהל את המשימות שלך</mat-card-subtitle>
+    </mat-card-header>
 
-  @if (errorMass()) {
-    <div class="error-message">
-      {{ errorMass() }}
-      
-      @if (errorMass()?.includes('לא קיים')) {
-        <button class="link-button" (click)="goToRegister()">
-          עבור להרשמה
+    <mat-card-content>
+      @if (errorMass()) {
+        <div class="alert alert-error">
+          <mat-icon>error</mat-icon>
+          <span>{{ errorMass() }}</span>
+          @if (errorMass()?.includes('לא קיים')) {
+            <button mat-button (click)="goToRegister()">עבור להרשמה</button>
+          }
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div class="alert alert-success">
+          <mat-icon>check_circle</mat-icon>
+          <span>{{ successMessage() }}</span>
+        </div>
+      }
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <mat-form-field appearance="outline">
+          <mat-label>אימייל</mat-label>
+          <input matInput formControlName="email" type="email" placeholder="name@example.com">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="loginForm.get('email')?.invalid">נא להזין אימייל תקין</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>סיסמה</mat-label>
+          <input matInput formControlName="password" type="password">
+          <mat-icon matSuffix>lock</mat-icon>
+          <mat-error *ngIf="loginForm.get('password')?.invalid">מינימום 6 תווים</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid" class="submit-btn">
+          התחבר למערכת
         </button>
-      }
-    </div>
-  }
-  
+      </form>
+    </mat-card-content>
 
-  @if (successMessage()) {
-    <div class="success-message">
-       {{ successMessage() }}
-    </div>
-  }
-
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="email">אימייל</label>
-      <input 
-        id="email" 
-        formControlName="email" 
-        type="email"
-        placeholder="example@email.com"
-        [class.invalid]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
-      />
-      
-      @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
-        <div class="field-error">
-          נא להזין אימייל תקין
-        </div>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="password">סיסמה</label>
-      <input 
-        id="password" 
-        formControlName="password" 
-        type="password"
-        placeholder="לפחות 6 תווים"
-        [class.invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
-      />
-      
-      @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
-        <div class="field-error">
-          סיסמה חובה ולפחות 6 תווים
-        </div>
-      }
-    </div>
-
-    <button type="submit" [disabled]="loginForm.invalid">
-      התחבר
-    </button>
-  </form>
-
-  <p class="register-link">
-    אין לך חשבון? 
-    <a (click)="goToRegister()">הירשם כאן</a>
-  </p>
+    <mat-card-footer class="auth-footer">
+      <p>אין לך חשבון? <a (click)="goToRegister()">הירשם כאן</a></p>
+    </mat-card-footer>
+  </mat-card>
 </div>

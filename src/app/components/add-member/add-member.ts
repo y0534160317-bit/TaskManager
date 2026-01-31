@@ -4,10 +4,15 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { TeamsService } from '../../services/teams-service';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router'; 
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-add-member',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatIconModule],
   templateUrl: './add-member.html',
   styleUrl: './add-member.scss',
 })

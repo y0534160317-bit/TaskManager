@@ -1,0 +1,164 @@
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  mat-icon {
+    color: #667eea;
+  }
+
+  span {
+    font-size: 14px;
+    color: #7f8c8d;
+  }
+}
+
+.center-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.error-banner {
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  mat-icon {
+    color: #c33;
+  }
+
+  span {
+    color: #c33;
+    font-weight: 500;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+
+  mat-icon {
+    font-size: 100px;
+    width: 100px;
+    height: 100px;
+    color: #bbb;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 24px;
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  border-radius: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  mat-card-header {
+    padding: 20px 16px 12px;
+
+    mat-card-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    mat-card-subtitle {
+      color: #95a5a6;
+      font-size: 13px;
+    }
+  }
+
+  mat-card-content {
+    padding: 0 16px 16px;
+
+    .project-desc {
+      color: #7f8c8d;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .project-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      .date-label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        color: #95a5a6;
+
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  mat-card-actions {
+    padding: 12px 16px;
+    border-top: 1px solid #ecf0f1;
+  }
+}
+
+.fab-bottom {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  box-shadow: 0 6px 20px rgba(103, 126, 234, 0.4);
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 20px 16px 80px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fab-bottom {
+    bottom: 16px;
+    left: 16px;
+  }
+}

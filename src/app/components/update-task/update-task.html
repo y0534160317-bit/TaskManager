@@ -1,82 +1,72 @@
 
+<div class="form-page-wrapper">
+  <mat-card class="form-card animate__animated animate__slideInUp">
+    <mat-card-header>
+      <mat-card-title>עדכון משימה</mat-card-title>
+      <mat-card-subtitle>עריכת פרטי משימה #{{ taskId() }}</mat-card-subtitle>
+    </mat-card-header>
 
-@if (taskId()) {
-  <div class="task-info">
-    <strong>עריכת משימה:</strong> {{ taskId() }}
-    @if (projectId()) {
-      <span> | <strong>פרויקט:</strong> {{ projectId() }}</span>
-    }
-  </div>
-}
+    <mat-card-content>
+      @if (isLoading()) {
+        <div class="form-loader"><mat-spinner diameter="40"></mat-spinner></div>
+      } @else {
+        <form [formGroup]="updateTaskForm" (ngSubmit)="onSubmit()" class="task-grid-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>כותרת המשימה</mat-label>
+            <input matInput formControlName="title">
+            <mat-icon matSuffix>title</mat-icon>
+          </mat-form-field>
 
-@if (isLoading()) {
-  <p>טוען משימה...</p>
-} @else {
-  <form [formGroup]="updateTaskForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>תיאור</mat-label>
+            <textarea matInput formControlName="description" rows="3"></textarea>
+          </mat-form-field>
 
-    <div>
-      <label for="title">כותרת משימה</label><br />
-      <input id="title" formControlName="title" />
-      
-      @if (updateTaskForm.get('title')?.touched && updateTaskForm.get('title')?.invalid) {
-        <div class="error">
-          כותרת משימה חובה (לפחות 3 תווים).
-        </div>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>סטטוס</mat-label>
+              <mat-select formControlName="status">
+                <mat-option value="todo">לביצוע</mat-option>
+                <mat-option value="in_progress">בתהליך</mat-option>
+                <mat-option value="done">הושלם</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>עדיפות</mat-label>
+              <mat-select formControlName="priority">
+                <mat-option value="low">נמוכה</mat-option>
+                <mat-option value="medium">בינונית</mat-option>
+                <mat-option value="high">גבוהה</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>תאריך יעד</mat-label>
+              <input matInput type="date" formControlName="due_date">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>מזהה אחראי (ID)</mat-label>
+              <input matInput type="number" formControlName="assigned_id">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+          </div>
+
+          @if (errorMass()) {
+            <div class="error-msg-box">{{ errorMass() }}</div>
+          }
+
+          <div class="form-actions">
+            <button mat-button type="button" (click)="cancel()">ביטול</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="updateTaskForm.invalid">
+              <mat-icon>save</mat-icon> שמור שינויים
+            </button>
+          </div>
+        </form>
       }
-    </div>
-
-    <div>
-      <label for="description">תיאור משימה</label><br />
-      <textarea id="description" formControlName="description"></textarea>
-    </div>
-
-    <div>
-      <label for="status">סטטוס</label><br />
-      <select id="status" formControlName="status">
-        <option value="">בחר סטטוס</option>
-        <option value="todo">לביצוע</option>
-        <option value="in_progress">בתהליך</option>
-        <option value="done">הושלם</option>
-      </select>
-    </div>
-
-    <div>
-      <label for="priority">עדיפות</label><br />
-      <select id="priority" formControlName="priority">
-        <option value="">בחר עדיפות</option>
-        <option value="low">נמוכה</option>
-        <option value="medium">בינונית</option>
-        <option value="high">גבוהה</option>
-      </select>
-    </div>
-
-    <div>
-      <label for="assigned_id">מזהה משתמש מוקצה</label><br />
-      <input id="assigned_id" type="number" formControlName="assigned_id" />
-    </div>
-
-    <div>
-      <label for="due_date">תאריך יעד</label><br />
-      <input id="due_date" type="date" formControlName="due_date" />
-    </div>
-
-    <div>
-      <label for="order_index">מיקום במסדר</label><br />
-      <input id="order_index" type="number" formControlName="order_index" />
-    </div>
-
-    @if (errorMass()) {
-      <div class="error-message">
-        <strong>שגיאה:</strong> {{ errorMass() }}
-      </div>
-    }
-
-    <button type="submit" [disabled]="updateTaskForm.invalid || !taskId()">
-      עדכן משימה
-    </button>
-    
-    <button type="button" (click)="cancel()">
-      ביטול
-    </button>
-  </form>
-}
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,38 +1,40 @@
-<header>
-  <nav>
-    <div class="nav-left">
-      <a class="logo" routerLink="/teams">מערכת ניהול</a>
 
+<header class="main-header">
+  <mat-toolbar color="primary" class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a class="logo" routerLink="/teams">
+          <mat-icon>task_alt</mat-icon>
+          <span>taskit</span>
+        </a>
+        
+        @if (isLoggedIn()) {
+          <button mat-button routerLink="/teams" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon>groups</mat-icon>
+            קבוצות
+          </button>
+        }
+      </div>
 
-      @if (isLoggedIn()) {
-      <a routerLinkActive="active" routerLink="/teams" [routerLinkActiveOptions]="{ exact: true }">קבוצות</a>
-
-      }
+      <div class="nav-right">
+        @if (isLoggedIn()) {
+          <div class="user-info" *ngIf="currentUser()">
+            <mat-icon>account_circle</mat-icon>
+            <span class="username">{{ currentUser() }}</span>
+          </div>
+          <button mat-stroked-button color="warn" class="btn-logout" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            התנתק
+          </button>
+        } @else {
+          <button mat-button routerLink="/register" routerLinkActive="active-link">הרשמה</button>
+          <button mat-raised-button color="accent" routerLink="/login" routerLinkActive="active-link">התחבר</button>
+        }
+      </div>
     </div>
-
-    <div class="nav-right">
-
-      @if (isLoggedIn()) {
-      @if (currentUser()) {
-      <span class="username">
-        <span class="user-icon">👤</span>
-        {{ currentUser() }}
-      </span>
-      }
-
-      <button class="btn-logout" (click)="logout()">
-        התנתק
-      </button>
-      }
-
-      @else {
-      <a routerLinkActive="active" routerLink="/register">הרשמה</a>
-      <a routerLinkActive="active" routerLink="/login">התחבר</a>
-      }
-    </div>
-  </nav>
+  </mat-toolbar>
 </header>
 
-<main>
+<main class="content-area">
   <router-outlet></router-outlet>
 </main>

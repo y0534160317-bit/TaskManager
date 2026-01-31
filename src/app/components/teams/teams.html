@@ -1,63 +1,60 @@
 
-<div>
-    @if(isLoading()) {
-        <p>Loading...</p>
-    } @else if(error()) {
-        <div class="error-message">
-            <p><strong>שגיאה בטעינת קבוצות:</strong> {{error()}}</p>
-            <button (click)="retry()">נסה שוב</button>
-        </div>
-    } @else if(teams().length === 0) {
-        <div class="warning-message">
-            <p>אין קבוצות זמינות.</p>
-        </div>
-                <button (click)="navigateToAddTeam()">
-            הוסף קבוצה חדשה
-        </button>
-    } @else {
-        <button (click)="navigateToAddTeam()">
-            הוסף קבוצה חדשה
-        </button>
-        <ul class="teams-list">
-            @for(team of teams(); track team.id) {
-                <li class="team-item">
-                    @if(team.id) {
-                        <div class="team-field">
-                            <strong>מזהה:</strong> {{ team.id }}
-                        </div>
-                    }
+<div class="page-container">
+  <header class="page-header">
+    <h1>הקבוצות שלי</h1>
+    <button mat-fab extended color="primary" (click)="navigateToAddTeam()">
+      <mat-icon>add</mat-icon>
+      קבוצה חדשה
+    </button>
+  </header>
 
-                    <div class="team-name">
-                        <strong>{{ team.name }}</strong>
-                    </div>
+  @if(isLoading()) {
+    <div class="loader"><mat-spinner></mat-spinner></div>
+  } @else if(error()) {
+    <mat-card class="error-card">
+      <mat-icon>warning</mat-icon>
+      <p>{{error()}}</p>
+      <button mat-button (click)="retry()">נסה שוב</button>
+    </mat-card>
+  } @else if(teams().length === 0) {
+    <div class="empty-state">
+      <mat-icon>group_off</mat-icon>
+      <p>אין קבוצות זמינות כרגע.</p>
+    </div>
+  } @else {
+    <div class="teams-grid">
+      @for(team of teams(); track team.id) {
+        <mat-card class="team-card animate__animated animate__zoomIn">
+          <mat-card-header>
+            <div mat-card-avatar class="team-avatar"><mat-icon>groups</mat-icon></div>
+            <mat-card-title>{{ team.name }}</mat-card-title>
+            <mat-card-subtitle>מזהה: {{ team.id }}</mat-card-subtitle>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <div class="team-stats">
+              <mat-chip-listbox>
+                <mat-chip>
+                  <mat-icon matChipAvatar>person</mat-icon>
+                  {{ team.members_count || 0 }} חברים
+                </mat-chip>
+              </mat-chip-listbox>
+              <p class="creation-date" *ngIf="team.created_at">
+                נוצר ב: {{ team.created_at | date:'shortDate' }}
+              </p>
+            </div>
+          </mat-card-content>
 
-                    @if(team.members_count !== undefined && team.members_count !== null) {
-                        <div class="team-members-count">
-                            <strong>מספר חברים:</strong> {{ team.members_count }}
-                        </div>
-                    } @else {
-                        <div class="team-no-members">
-                            אין נתונים על מספר חברים
-                        </div>
-                    }
-
-                    @if(team.created_at) {
-                        <div class="team-date">
-                            <strong>נוצר בתאריך:</strong> {{ team.created_at }}
-                        </div>
-                    }
-                  
-                    <div class="team-actions">
-                        <button (click)="navigateToAddMember(team.id)" class="btn-add-member">
-                            הוסף חבר
-                        </button>
-                        
-                        <button (click)="navigateToProjects(team.id)" class="btn-navigate">
-                            נווט לפרויקטים
-                        </button>
-                    </div>
-                </li>
-            }
-        </ul>
-    }
+          <mat-card-actions align="end">
+            <button mat-button (click)="navigateToAddMember(team.id!)">
+              <mat-icon>person_add</mat-icon> הוסף חבר
+            </button>
+            <button mat-raised-button color="primary" (click)="navigateToProjects(team.id!)">
+              צפה בפרויקטים <mat-icon>arrow_back</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  }
 </div>

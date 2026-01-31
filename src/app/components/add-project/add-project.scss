@@ -1,0 +1,77 @@
+.form-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  padding: 20px;
+}
+
+.form-card {
+  max-width: 550px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+  mat-card-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    padding: 24px;
+    text-align: center;
+
+    mat-card-title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+
+  mat-card-content {
+    padding: 32px 24px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error-msg-box {
+  background: #fee;
+  color: #c33;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 16px;
+
+  button {
+    min-width: 110px;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-page-wrapper {
+    padding: 16px;
+  }
+
+  .form-card {
+    mat-card-content {
+      padding: 24px 16px;
+    }
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+    }
+  }
+}

@@ -3,10 +3,17 @@ import { Team } from '../../models/teamModel';
 import { TeamsService } from '../../services/teams-service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+ import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatChipsModule } from '@angular/material/chips';         
 
 @Component({
   selector: 'app-teams',
-  imports: [ CommonModule],
+  imports: [ CommonModule, MatButtonModule, MatIconModule, MatChipsModule, MatInputModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule],
   standalone: true,
   templateUrl: './teams.html',
   styleUrl: './teams.scss',
